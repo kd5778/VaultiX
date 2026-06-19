@@ -106,9 +106,9 @@ const PasswordModal: React.FC<Props> = ({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
-      <div className="w-full max-w-2xl bg-slate-900 text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+      <div className="w-full max-w-2xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
+        <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
               <KeyRound className="w-5 h-5 text-white" />
@@ -117,7 +117,7 @@ const PasswordModal: React.FC<Props> = ({
               <h2 className="text-xl font-semibold">
                 {initialData ? "Edit Password" : "Add New Password"}
               </h2>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 {initialData
                   ? "Update your secure credentials"
                   : "Store your credentials securely"}
@@ -136,7 +136,7 @@ const PasswordModal: React.FC<Props> = ({
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                 Title *
               </label>
               <input
@@ -144,19 +144,19 @@ const PasswordModal: React.FC<Props> = ({
                 value={form.title}
                 onChange={handleChange}
                 placeholder="e.g. Facebook, Gmail, SBI Bank"
-                className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                 Category
               </label>
               <select
                 name="category"
                 value={form.category}
                 onChange={handleChange}
-                className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
               >
                 <option value="Codes">Codes</option>
                 <option value="Passkeys">Passkeys</option>
@@ -170,7 +170,7 @@ const PasswordModal: React.FC<Props> = ({
           {form.category === "Credit Card" ? (
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                   Card Number
                 </label>
                 <input
@@ -178,13 +178,13 @@ const PasswordModal: React.FC<Props> = ({
                   value={form.cardNumber}
                   onChange={handleChange}
                   placeholder="1234 5678 9012 3456"
-                  className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-300">
+                  <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                     Expiry Date
                   </label>
                   <input
@@ -192,12 +192,12 @@ const PasswordModal: React.FC<Props> = ({
                     value={form.expiry}
                     onChange={handleChange}
                     placeholder="MM/YY"
-                    className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                    className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-300">
+                  <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                     CVV
                   </label>
                   <div className="relative">
@@ -207,7 +207,7 @@ const PasswordModal: React.FC<Props> = ({
                       value={form.cvv}
                       onChange={handleChange}
                       placeholder="•••"
-                      className="w-full p-3 pr-12 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                      className="w-full p-3 pr-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                     />
                     <button
                       type="button"
@@ -223,7 +223,7 @@ const PasswordModal: React.FC<Props> = ({
           ) : (
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                   Username
                 </label>
                 <input
@@ -231,12 +231,12 @@ const PasswordModal: React.FC<Props> = ({
                   value={form.username}
                   onChange={handleChange}
                   placeholder="you@example.com or username"
-                  className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
                   Password
                 </label>
                 <div className="relative">
@@ -246,7 +246,7 @@ const PasswordModal: React.FC<Props> = ({
                     value={form.password}
                     onChange={handleChange}
                     placeholder="••••••••••••••••"
-                    className="w-full p-3 pr-24 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                    className="w-full p-3 pr-24 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex gap-1">
                     <button
@@ -272,7 +272,7 @@ const PasswordModal: React.FC<Props> = ({
           )}
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">
+            <label className="text-sm font-medium text-slate-600 dark:text-slate-300">
               Notes (Optional)
             </label>
             <textarea
@@ -281,16 +281,16 @@ const PasswordModal: React.FC<Props> = ({
               onChange={handleChange}
               placeholder="Any additional information, hints, or backup codes..."
               rows={3}
-              className="w-full p-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-400 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+              className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex gap-3 p-6 border-t border-white/10 bg-slate-800/30">
+        <div className="flex gap-3 p-6 border-t border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-slate-800/30">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-colors"
+            className="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-white/20 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
           >
             Cancel
           </button>

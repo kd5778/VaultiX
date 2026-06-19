@@ -115,9 +115,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-64px)] bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 text-white">
+    <div className="flex h-[calc(100vh-64px)] bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900 text-slate-900 dark:text-white">
       {/* Sidebar */}
-      <div className="w-64 p-6 border-r border-white/10 bg-slate-900/50 backdrop-blur-sm space-y-6">
+      <div className="w-64 p-6 border-r border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm space-y-6">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
             <Shield className="w-5 h-5 text-white" />
@@ -135,7 +135,7 @@ export default function Dashboard() {
             className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group ${
               selectedCategory === label
                 ? `bg-gradient-to-r ${color} text-white shadow-lg`
-                : "text-slate-300 hover:text-white hover:bg-white/5"
+                : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
             }`}
           >
             <Icon size={20} />
@@ -148,14 +148,14 @@ export default function Dashboard() {
       </div>
 
       {/* Item List */}
-      <div className="w-80 border-r border-white/10 p-6 bg-slate-800/50 backdrop-blur-sm">
+      <div className="w-80 border-r border-slate-200 dark:border-white/10 p-6 bg-slate-100/50 dark:bg-slate-800/50 backdrop-blur-sm">
         <div className="mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
             <input
               type="text"
               placeholder="Search passwords..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-700/50 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -176,9 +176,9 @@ export default function Dashboard() {
             filteredItems.map((item) => (
               <div
                 key={item._id}
-                className={`group p-4 rounded-xl cursor-pointer transition-all duration-200 hover:bg-white/5 border border-transparent hover:border-white/10 ${
+                className={`group p-4 rounded-xl cursor-pointer transition-all duration-200 hover:bg-slate-200/50 dark:hover:bg-white/5 border border-transparent hover:border-slate-300 dark:hover:border-white/10 ${
                   selectedItem?._id === item._id
-                    ? "bg-white/10 border-white/20"
+                    ? "bg-slate-200/50 dark:bg-white/10 border-slate-300 dark:border-white/20"
                     : ""
                 }`}
                 onClick={() => {
@@ -188,14 +188,14 @@ export default function Dashboard() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-white truncate">
+                    <h3 className="font-semibold text-slate-900 dark:text-white truncate">
                       {item.title}
                     </h3>
                     <p className="text-sm text-slate-400 truncate">
                       {item.username}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-700/50 text-slate-300">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-200 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
                         {item.category}
                       </span>
                     </div>
@@ -241,14 +241,14 @@ export default function Dashboard() {
       </div>
 
       {/* Details Panel */}
-      <div className="flex-1 p-8 bg-slate-900/30 backdrop-blur-sm overflow-auto">
+      <div className="flex-1 p-8 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm overflow-auto">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-3xl font-bold gradient-text mb-2">
                 {selectedItem ? selectedItem.title : "Welcome to VaultiX"}
               </h1>
-              <p className="text-slate-400">
+              <p className="text-slate-500 dark:text-slate-400">
                 {selectedItem
                   ? "Manage your secure credentials"
                   : "Your passwords are protected with military-grade encryption"}
@@ -265,7 +265,7 @@ export default function Dashboard() {
           </div>
 
           {selectedItem ? (
-            <div className="glass-effect rounded-2xl p-8 border border-white/10 max-w-4xl mx-auto space-y-8">
+            <div className="glass-effect rounded-2xl p-8 border border-slate-200 dark:border-white/10 max-w-4xl mx-auto space-y-8">
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
@@ -274,7 +274,7 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <div className="flex items-center gap-4 mb-2">
-                      <h2 className="text-2xl font-bold text-white">
+                      <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                         {selectedItem.title}
                       </h2>
                       {selectedItem.category !== "Credit Card" &&
@@ -290,9 +290,9 @@ export default function Dashboard() {
                           </a>
                         )}
                     </div>
-                    <p className="text-slate-400">
+                    <p className="text-slate-500 dark:text-slate-400">
                       Category:{" "}
-                      <span className="text-white font-medium">
+                      <span className="text-slate-900 dark:text-white font-medium">
                         {selectedItem.category}
                       </span>
                     </p>
@@ -322,16 +322,16 @@ export default function Dashboard() {
                 {selectedItem.category !== "Credit Card" ? (
                   <>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-400">
+                      <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Username
                       </label>
-                      <div className="flex items-center gap-2 p-3 bg-slate-800/50 rounded-lg border border-white/10">
-                        <span className="text-white font-mono flex-1">
+                      <div className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                        <span className="text-slate-900 dark:text-white font-mono flex-1">
                           {selectedItem.username}
                         </span>
                         <button
                           onClick={() => handleCopy(selectedItem.username)}
-                          className="p-1.5 rounded bg-slate-700/50 text-slate-400 hover:text-white transition-colors"
+                          className="p-1.5 rounded bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                           title="Copy username"
                         >
                           <Copy size={14} />
@@ -340,11 +340,11 @@ export default function Dashboard() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-400">
+                      <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Password
                       </label>
-                      <div className="flex items-center gap-2 p-3 bg-slate-800/50 rounded-lg border border-white/10">
-                        <span className="text-white font-mono flex-1">
+                      <div className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                        <span className="text-slate-900 dark:text-white font-mono flex-1">
                           {showPassword
                             ? selectedItem.password
                             : "•".repeat(12)}
@@ -352,7 +352,7 @@ export default function Dashboard() {
                         <div className="flex gap-1">
                           <button
                             onClick={() => setShowPassword(!showPassword)}
-                            className="p-1.5 rounded bg-slate-700/50 text-slate-400 hover:text-white transition-colors"
+                            className="p-1.5 rounded bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                             title="Toggle visibility"
                           >
                             {showPassword ? (
@@ -363,7 +363,7 @@ export default function Dashboard() {
                           </button>
                           <button
                             onClick={() => handleCopy(selectedItem.password)}
-                            className="p-1.5 rounded bg-slate-700/50 text-slate-400 hover:text-white transition-colors"
+                            className="p-1.5 rounded bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                             title="Copy password"
                           >
                             <Copy size={14} />
@@ -375,16 +375,16 @@ export default function Dashboard() {
                 ) : (
                   <>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-400">
+                      <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Card Number
                       </label>
-                      <div className="flex items-center gap-2 p-3 bg-slate-800/50 rounded-lg border border-white/10">
-                        <span className="text-white font-mono flex-1">
+                      <div className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                        <span className="text-slate-900 dark:text-white font-mono flex-1">
                           {selectedItem.cardNumber}
                         </span>
                         <button
                           onClick={() => handleCopy(selectedItem.cardNumber)}
-                          className="p-1.5 rounded bg-slate-700/50 text-slate-400 hover:text-white transition-colors"
+                          className="p-1.5 rounded bg-slate-200 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                           title="Copy card number"
                         >
                           <Copy size={14} />
@@ -394,22 +394,22 @@ export default function Dashboard() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-400">
+                        <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                           Expiry
                         </label>
-                        <div className="p-3 bg-slate-800/50 rounded-lg border border-white/10">
-                          <span className="text-white">
+                        <div className="p-3 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                          <span className="text-slate-900 dark:text-white">
                             {selectedItem.expiry}
                           </span>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-400">
+                        <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                           CVV
                         </label>
-                        <div className="p-3 bg-slate-800/50 rounded-lg border border-white/10">
-                          <span className="text-white">{selectedItem.cvv}</span>
+                        <div className="p-3 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                          <span className="text-slate-900 dark:text-white">{selectedItem.cvv}</span>
                         </div>
                       </div>
                     </div>
@@ -420,22 +420,22 @@ export default function Dashboard() {
               {/* Notes */}
               {selectedItem.notes && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400">
+                  <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                     Notes
                   </label>
-                  <div className="p-4 bg-slate-800/50 rounded-lg border border-white/10">
-                    <p className="text-slate-300">{selectedItem.notes}</p>
+                  <div className="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-white/10">
+                    <p className="text-slate-600 dark:text-slate-300">{selectedItem.notes}</p>
                   </div>
                 </div>
               )}
 
               {/* Security Tips */}
-              <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-500/20">
-                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-300/30 dark:border-purple-500/20">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                   <Shield className="w-5 h-5 text-purple-400" />
                   Security Tips
                 </h3>
-                <ul className="space-y-2 text-sm text-slate-300">
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                     Update passwords every 30 days

@@ -28,7 +28,7 @@ const Navbar = () => {
   const navItems = ["Home", "About", "Services"];
 
   return (
-    <nav className="sticky top-0 z-50 w-full glass-effect border-b border-white/10 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-white/10 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -51,7 +51,7 @@ const Navbar = () => {
                 <li key={item}>
                   <button
                     onClick={() => handleNavClick(item)}
-                    className="text-slate-300 hover:text-white transition-colors duration-200 font-medium relative group cursor-pointer"
+                    className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 font-medium relative group cursor-pointer"
                   >
                     {item}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full"></span>
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="border-white/20 text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+                  className="border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
                 >
                   <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -78,17 +78,17 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="bg-slate-800 border-slate-700"
+                className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
               >
                 <DropdownMenuItem
                   onClick={() => setTheme("light")}
-                  className="text-slate-300 hover:text-white hover:bg-slate-700"
+                  className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   ☀️ Light
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => setTheme("dark")}
-                  className="text-slate-300 hover:text-white hover:bg-slate-700"
+                  className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   🌙 Dark
                 </DropdownMenuItem>
@@ -120,7 +120,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
             >
               {isMobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -134,12 +134,12 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/95 backdrop-blur-md rounded-lg mt-2 border border-white/10">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-lg mt-2 border border-slate-200 dark:border-white/10">
               {navItems.map((item) => (
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className="block w-full text-left px-3 py-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-md transition-colors font-medium cursor-pointer"
+                  className="block w-full text-left px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-md transition-colors font-medium cursor-pointer"
                 >
                   {item}
                 </button>
