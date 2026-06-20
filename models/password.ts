@@ -13,6 +13,9 @@ const PasswordSchema = new Schema(
     cardNumber: String,
     cvv: String,
     expiry: String,
+
+    // Soft-delete: stores the original category before moving to "Deleted"
+    originalCategory: String,
   },
   { timestamps: true }
 );

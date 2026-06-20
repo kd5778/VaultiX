@@ -19,6 +19,7 @@ import {
   Trash,
   Shield,
   Lock,
+  RotateCcw,
 } from "lucide-react";
 
 import PasswordModal from "@/components/PasswordModal";
@@ -33,6 +34,7 @@ interface PasswordEntry {
   cvv: string;
   notes: string;
   _id: string;
+  updatedAt?: string;
 }
 
 const categories = [
@@ -86,10 +88,41 @@ export default function Dashboard() {
     }
   };
 
+  const handleRestore = async (id: string) => {
+    try {
+      await axios.put(`/api/passwords/restore/${id}`);
+      fetchPasswords();
+      setSelectedItem(null);
+    } catch (err) {
+      console.error("Restore failed:", err);
+    }
+  };
+
+  const handlePermanentDelete = async (id: string) => {
+    if (!confirm("This will permanently delete this password. This cannot be undone. Continue?")) return;
+    try {
+      await axios.delete(`/api/passwords/permanent/${id}`);
+      fetchPasswords();
+      setSelectedItem(null);
+    } catch (err) {
+      console.error("Permanent delete failed:", err);
+    }
+  };
+
+  const handleEmptyTrash = async () => {
+    if (!confirm("This will permanently delete all items in Deleted. This cannot be undone. Continue?")) return;
+    try {
+      await axios.delete("/api/passwords/empty-trash");
+      fetchPasswords();
+      setSelectedItem(null);
+    } catch (err) {
+      console.error("Empty trash failed:", err);
+    }
+  };
+
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      // You could add a toast notification here
     } catch {
       alert("Failed to copy to clipboard.");
     }
@@ -97,7 +130,9 @@ export default function Dashboard() {
 
   const filteredItems = items.filter((item) => {
     const matchCategory =
-      selectedCategory === "All" || item.category === selectedCategory;
+      selectedCategory === "All"
+        ? item.category !== "Deleted"
+        : item.category === selectedCategory;
     const matchSearch =
       item.title.toLowerCase().includes(search.toLowerCase()) ||
       item.username.toLowerCase().includes(search.toLowerCase());
@@ -116,7 +151,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-[calc(100vh-64px)] bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900 text-slate-900 dark:text-white">
-      {/* Sidebar */}
       <div className="w-64 p-6 border-r border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm space-y-6">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -147,7 +181,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Item List */}
       <div className="w-80 border-r border-slate-200 dark:border-white/10 p-6 bg-slate-100/50 dark:bg-slate-800/50 backdrop-blur-sm">
         <div className="mb-6">
           <div className="relative">
@@ -198,40 +231,72 @@ export default function Dashboard() {
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-200 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
                         {item.category}
                       </span>
+                      {selectedCategory === "Deleted" && item.updatedAt && (
+                        <span className="text-xs text-red-400">
+                          {Math.max(0, 30 - Math.floor((Date.now() - new Date(item.updatedAt).getTime()) / 86400000))} days left
+                        </span>
+                      )}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openEditModal(item);
-                      }}
-                      className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 hover:text-blue-300 transition-colors"
-                      title="Edit"
-                    >
-                      <Edit size={14} />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopy(item.password);
-                      }}
-                      className="p-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 hover:text-green-300 transition-colors"
-                      title="Copy Password"
-                    >
-                      <Copy size={14} />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(item._id);
-                      }}
-                      className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300 transition-colors"
-                      title="Delete"
-                    >
-                      <Trash size={14} />
-                    </button>
+                    {selectedCategory === "Deleted" ? (
+                      <>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRestore(item._id);
+                          }}
+                          className="p-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 hover:text-green-300 transition-colors"
+                          title="Restore"
+                        >
+                          <RotateCcw size={14} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handlePermanentDelete(item._id);
+                          }}
+                          className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300 transition-colors"
+                          title="Delete Forever"
+                        >
+                          <Trash size={14} />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openEditModal(item);
+                          }}
+                          className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 hover:text-blue-300 transition-colors"
+                          title="Edit"
+                        >
+                          <Edit size={14} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCopy(item.password);
+                          }}
+                          className="p-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 hover:text-green-300 transition-colors"
+                          title="Copy Password"
+                        >
+                          <Copy size={14} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(item._id);
+                          }}
+                          className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash size={14} />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -240,7 +305,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Details Panel */}
       <div className="flex-1 p-8 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm overflow-auto">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
@@ -251,22 +315,35 @@ export default function Dashboard() {
               <p className="text-slate-500 dark:text-slate-400">
                 {selectedItem
                   ? "Manage your secure credentials"
+                  : selectedCategory === "Deleted"
+                  ? "Items here are permanently deleted after 30 days"
                   : "Your passwords are protected with military-grade encryption"}
               </p>
             </div>
 
-            <button
-              onClick={openAddModal}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105"
-            >
-              <Plus size={20} />
-              Add Password
-            </button>
+            {selectedCategory === "Deleted" ? (
+              filteredItems.length > 0 && (
+                <button
+                  onClick={handleEmptyTrash}
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-red-500/25 hover:scale-105"
+                >
+                  <Trash size={20} />
+                  Empty Trash
+                </button>
+              )
+            ) : (
+              <button
+                onClick={openAddModal}
+                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105"
+              >
+                <Plus size={20} />
+                Add Password
+              </button>
+            )}
           </div>
 
           {selectedItem ? (
             <div className="glass-effect rounded-2xl p-8 border border-slate-200 dark:border-white/10 max-w-4xl mx-auto space-y-8">
-              {/* Header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -300,24 +377,44 @@ export default function Dashboard() {
                 </div>
 
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => openEditModal(selectedItem)}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
-                  >
-                    <Edit size={16} />
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(selectedItem._id)}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
-                  >
-                    <Trash size={16} />
-                    Delete
-                  </button>
+                  {selectedItem.category === "Deleted" ? (
+                    <>
+                      <button
+                        onClick={() => handleRestore(selectedItem._id)}
+                        className="flex items-center gap-2 px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
+                      >
+                        <RotateCcw size={16} />
+                        Restore
+                      </button>
+                      <button
+                        onClick={() => handlePermanentDelete(selectedItem._id)}
+                        className="flex items-center gap-2 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
+                      >
+                        <Trash size={16} />
+                        Delete Forever
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => openEditModal(selectedItem)}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
+                      >
+                        <Edit size={16} />
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(selectedItem._id)}
+                        className="flex items-center gap-2 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
+                      >
+                        <Trash size={16} />
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
 
-              {/* Details Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {selectedItem.category !== "Credit Card" ? (
                   <>
@@ -417,7 +514,6 @@ export default function Dashboard() {
                 )}
               </div>
 
-              {/* Notes */}
               {selectedItem.notes && (
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -429,7 +525,6 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {/* Security Tips */}
               <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-300/30 dark:border-purple-500/20">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                   <Shield className="w-5 h-5 text-purple-400" />

@@ -24,14 +24,18 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100/20 to-slate-100 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900 relative overflow-hidden">
+      
       {/* Background Effects */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/20 dark:bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-12">
         <div className="max-w-4xl w-full">
-          <div className="glass-effect rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-white/10">
+          
+          {/* Main About Me Card with Permanent Glowing Border */}
+          <div className="glass-effect rounded-3xl p-8 md:p-12 border-4 border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.4)] bg-white/40 dark:bg-slate-800/40 dark:border-purple-400 dark:shadow-[0_0_20px_rgba(192,132,252,0.4)] backdrop-blur-md">
             <div className="flex flex-col items-center text-center gap-8">
+              
               {/* Profile Section */}
               <div className="relative">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-1 shadow-2xl">
@@ -49,6 +53,7 @@ const AboutPage = () => {
                 </div>
               </div>
 
+              {/* Bio Section */}
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-5xl font-bold gradient-text">
                   About Me
@@ -85,7 +90,7 @@ const AboutPage = () => {
                   </span>{" "}
                   and{" "}
                   <span className="text-purple-700 dark:text-purple-300 font-semibold">
-                    CampusTrade
+                    Smart Retail Inventory
                   </span>
                   .
                 </p>

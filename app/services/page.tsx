@@ -12,6 +12,7 @@ import {
   Eye,
   Globe,
   ArrowRight,
+  RotateCcw,
 } from "lucide-react";
 
 const features = [
@@ -71,6 +72,13 @@ const features = [
       "Access your passwords from anywhere with cloud synchronization and multi-device support.",
     color: "from-violet-500 to-purple-500",
   },
+  {
+    icon: RotateCcw,
+    title: "Trash & Recovery Vault",
+    description:
+      "Safely move sensitive records to a secure trash vault instead of deleting them instantly. Restore items anytime or permanently remove them when no longer needed.",
+    color: "from-orange-500 to-red-500",
+  },
 ];
 
 const ServicesPage = () => {
@@ -116,7 +124,7 @@ const ServicesPage = () => {
             {features.map((feature, index) => (
               <div
                 key={feature.title}
-                className="group glass-effect rounded-2xl p-8 border border-slate-200 dark:border-white/10 card-hover"
+                className="group glass-effect rounded-2xl p-8 border-2 border-purple-200/50 bg-white/40 dark:bg-slate-800/40 dark:border-purple-500/30 backdrop-blur-md transition-all duration-300 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] dark:hover:border-purple-400 dark:hover:shadow-[0_0_20px_rgba(192,132,252,0.4)] card-hover"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div
@@ -138,7 +146,7 @@ const ServicesPage = () => {
 
           {/* Security Stats */}
           <div className="mt-20">
-            <div className="glass-effect rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-white/10">
+            <div className="glass-effect rounded-3xl p-8 md:p-12 border-2 border-purple-200/50 bg-white/40 dark:bg-slate-800/40 dark:border-purple-500/30 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] dark:hover:border-purple-400 dark:hover:shadow-[0_0_20px_rgba(192,132,252,0.4)]">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
                   Why Choose VaultiX?
@@ -190,7 +198,7 @@ const ServicesPage = () => {
 
           {/* CTA Section */}
           <div className="mt-20 text-center">
-            <div className="glass-effect rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-white/10">
+            <div className="glass-effect rounded-3xl p-8 md:p-12 border-2 border-purple-200/50 bg-white/40 dark:bg-slate-800/40 dark:border-purple-500/30 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] dark:hover:border-purple-400 dark:hover:shadow-[0_0_20px_rgba(192,132,252,0.4)]">
               <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">
                 Ready to Secure Your Digital Life?
               </h2>

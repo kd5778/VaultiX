@@ -16,7 +16,17 @@ export default async function handler(
   if (!id) return res.status(400).json({ error: "Missing ID" });
 
   await dbConnect();
-  await Password.deleteOne({ _id: id, userId });
 
-  res.status(200).json({ message: "Password deleted" });
+  const existing = await Password.findOne({ _id: id, userId });
+  if (!existing) return res.status(404).json({ error: "Password not found" });
+
+  if (existing.category === "Deleted") {
+    return res.status(200).json({ message: "Already deleted" });
+  }
+
+  existing.originalCategory = existing.category;
+  existing.category = "Deleted";
+  await existing.save();
+
+  res.status(200).json({ message: "Password moved to Deleted", item: existing });
 }
