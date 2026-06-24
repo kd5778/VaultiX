@@ -143,7 +143,7 @@ const AboutPage = () => {
                     <div>
                       <div className="text-sm text-slate-500 dark:text-slate-400">Phone</div>
                       <div className="text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
-                        +91 9982722888
+                        +91 9982xxxxxx
                       </div>
                     </div>
                   </a>
