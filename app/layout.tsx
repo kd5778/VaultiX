@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning>
+      <html lang="en" className="dark" style={{ colorScheme: "dark" }} data-scroll-behavior="smooth" suppressHydrationWarning>
         <body suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
